@@ -22,6 +22,7 @@ module.exports = {
         secondary: "#1A9944",
         secondary_light: "#32E56E",
         def: "#FBF4F0",
+        footer: "#3B2E26",
       },
       boxShadow: {
         nav: "0px 1px 3px rgba(0, 0, 0, 0.5);",
