@@ -5,13 +5,24 @@ Primary Font: Poppins
 Secondary Font: Open Sans
 */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&display=swap');
+/* Logo Font */
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
+    .transition-default {
+        @apply transition-all duration-100
+    }
     .btn {
         @apply rounded-def text-white bg-black px-4 py-2
+    }
+}
+
+@layer utilities {
+    .btn-def-hover {
+        @apply hover:text-white hover:bg-black transition-all duration-100
     }
 }

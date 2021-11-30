@@ -6,7 +6,7 @@ const NavItem: NextPage<{ href: string; text: string }> = (props) => {
   return (
     <li>
       <Link href={href}>
-        <a className="">{text}</a>
+        <a className="transition-default hover:text-primary">{text}</a>
       </Link>
     </li>
   );
