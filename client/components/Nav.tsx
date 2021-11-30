@@ -17,7 +17,7 @@ const Nav: NextPage = (props) => {
         onClick={handleLogoClick}
       />
 
-      <ul className="text-xl font-medium flex gap-5">
+      <ul className="text-xl font-medium flex gap-10">
         <NavItem href="/menu" text="Menu" />
         <NavItem href="/rewards" text="Rewards" />
         <NavItem href="/" text="About Us" />
@@ -26,12 +26,12 @@ const Nav: NextPage = (props) => {
 
       <div className="">
         <Link href="/signin">
-          <a className="btn btn-def-hover text-black bg-white border border-black py-1.5 mr-4">
+          <a className="btn btn-def-hover text-black bg-white border border-black py-1.5 mr-4 font-semibold">
             Sign In
           </a>
         </Link>
         <Link href="/menu">
-          <a className="btn bg-secondary py-3 hover:bg-secondary_light transition-all duration-100">
+          <a className="btn bg-secondary py-3 hover:bg-secondary_light transition-all duration-100 font-semibold">
             Order Now
           </a>
         </Link>
