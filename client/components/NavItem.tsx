@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 
-const NavItem: NextPage<{ href: string; text: string }> = ({ href, text }) => {
+const NavItem: NextPage<{ href: string; text: string; style?: string }> = ({
+  href,
+  text,
+  style,
+}) => {
   return (
-    <li>
+    <li className={style}>
       <Link href={href}>
         <a className="transition-default hover:text-primary">{text}</a>
       </Link>
