@@ -19,6 +19,9 @@ Secondary Font: Open Sans
     .btn {
         @apply rounded-def text-white bg-black px-4 py-2
     }
+    .title {
+        @apply text-center font-primary font-bold text-4xl justify-self-center mb-10
+    }
 }
 
 @layer utilities {
