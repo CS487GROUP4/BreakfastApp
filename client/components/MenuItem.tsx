@@ -6,7 +6,9 @@ const MenuItem: NextPage<{ title: string; imgSrc: string; price: number }> = ({
   imgSrc,
   price,
 }) => {
-  function handleImageClick() {}
+  function handleImageClick() {
+    window.location.href = "";
+  }
   return (
     <article className="rounded-def shadow-card overflow-hidden">
       <Image
