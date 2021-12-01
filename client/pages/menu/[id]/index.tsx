@@ -1,19 +1,20 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
-import Breadcrumb from "../../components/Breadcrumb";
-
-const MenuItem: NextPage = () => {
+import Nav from "../../../components/Nav";
+import Footer from "../../../components/Footer";
+const Item: NextPage = () => {
   const router = useRouter();
   const id: any = router.query.id;
   const pageTitle = id?.charAt(0)?.toUpperCase() + id?.slice(1);
 
   return (
     <div className="bg-def">
-      <Breadcrumb current={pageTitle} />
+      <Nav />
       <h1 className=""> {pageTitle} </h1>
       <main className="grid grid-cols-3"></main>
+      <Footer />
     </div>
   );
 };
 
-export default MenuItem;
+export default Item;

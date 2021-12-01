@@ -12,8 +12,8 @@ const Menu: NextPage = () => {
         <article className="grid grid-cols-2 gap-8">
           <MenuSection imgSrc="drinks.png" title="Drinks" />
           <MenuSection imgSrc="donuts.png" title="Donuts" />
-          <MenuSection imgSrc="bagels.png" title="bagels" />
-          <MenuSection imgSrc="sandwiches.png" title="sandwiches" />
+          <MenuSection imgSrc="bagels.png" title="Bagels" />
+          <MenuSection imgSrc="sandwiches.png" title="Sandwiches" />
           <MenuSection imgSrc="pancakes.png" title="Pancakes" />
           <MenuSection imgSrc="burritos.png" title="Burritos" />
         </article>
