@@ -6,8 +6,8 @@ import Nav from "../../components/Nav";
 
 const MenuItem: NextPage = () => {
   const router = useRouter();
-  const id: any = router.query.id;
-  const pageTitle = id?.charAt(0)?.toUpperCase() + id?.slice(1);
+  const category: any = router.query.category;
+  const pageTitle = category?.charAt(0)?.toUpperCase() + category?.slice(1);
 
   return (
     <div className="bg-def">
