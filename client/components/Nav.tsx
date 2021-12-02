@@ -3,7 +3,7 @@ import NavItem from "./NavItem";
 import Image from "next/image";
 import Link from "next/link";
 
-const Nav: NextPage = (props) => {
+const Nav: NextPage<{ isBrowsing?: boolean }> = ({ isBrowsing }) => {
   function handleLogoClick() {
     window.location.href = "/";
   }
@@ -30,11 +30,19 @@ const Nav: NextPage = (props) => {
             Sign In
           </a>
         </Link>
-        <Link href="/menu">
-          <a className="btn bg-secondary py-3 hover:bg-secondary_light transition-all duration-100 font-semibold">
-            Order Now
-          </a>
-        </Link>
+        {isBrowsing ? (
+          <Link href="/menu">
+            <a className="btn bg-secondary py-3 hover:bg-secondary_light transition-all duration-100 font-semibold">
+              Order Now
+            </a>
+          </Link>
+        ) : (
+          <Link href="/cart">
+            <a className="btn bg-primary py-3 transition-all duration-100 font-semibold">
+              🛒 Cart
+            </a>
+          </Link>
+        )}
       </div>
     </nav>
   );

@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <title> Bhole App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Nav />
+      <Nav isBrowsing={true} />
       <main className="block relative p-20 h-screen">
         <h1 className="font-logo text-5xl mb-8 text-primary"> Bhole</h1>
         <h2 className="font-primary text-4xl font-bold w-5/12 mb-5">
