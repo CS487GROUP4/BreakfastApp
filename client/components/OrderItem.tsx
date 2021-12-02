@@ -1,31 +1,32 @@
 import type { NextPage } from "next";
 import Image from "next/image";
+import OrderDetails from "./OrderDetails";
 
 const OrderItem: NextPage<{
-  title: string;
   imgSrc: string;
-  options: string;
-  quantity: number;
-  price: number;
-}> = ({ title, imgSrc, options, quantity, price }) => {
+}> = ({ imgSrc }) => {
   return (
-    <article className="">
-      <Image
-        className="cursor-pointer"
-        src={`/static/${imgSrc}`}
-        width={400}
-        height={250}
-      />
-      <div className="">
-        <h1 className=""> {title}</h1>
-        {options && <h2 className=""> {options}</h2>}
-
-        <p className="">Quantity: {quantity}</p>
+    <article className="flex bg-white p-4 shadow-card rounded-def">
+      <div className="mr-5">
+        <Image
+          className="cursor-pointer rounded-def"
+          src={`/static/${imgSrc}`}
+          width={150}
+          height={150}
+        />
       </div>
 
-      <div className="">
-        <span className=""> ${price} </span>
-        <a className=""> Edit</a>
+      <OrderDetails
+        title="Glazed Donut"
+        options="Single"
+        quantity={3}
+        price={3.0}
+      />
+
+      <div className="relative">
+        <a className=" underline cursor-pointer text-error font-semibold absolute bottom-0 right-0">
+          Edit
+        </a>
       </div>
     </article>
   );
