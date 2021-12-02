@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "category": "Drinks",
+        "item": "Strawberry Lemonade",
+        "price": 3.00
+    },
+    {
+        "id": 2,
+        "category": "Donuts",
+        "item": "Chocolate Donut",
+        "price": 3.00
+    },
+    {
+        "id": 3,
+        "category": "Donuts",
+        "item": "Strawberry Donut",
+        "price": 3.00
+    }
+]

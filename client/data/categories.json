@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "category": "Drinks",
+        "imgUrl": "drinks.png"
+    },
+    {
+        "id": 2,
+        "category": "Donuts",
+        "imgUrl": "donuts.png"
+    },
+    {
+        "id": 3,
+        "category": "Bagels",
+        "imgUrl": "bagels.png"
+    },
+    {
+        "id": 4,
+        "category": "Sandwiches",
+        "imgUrl": "sandwiches.png"
+    },
+    {
+        "id": 5,
+        "category": "Pancakes",
+        "imgUrl": "pancakes.png"
+    },
+    {
+        "id": 6,
+        "category": "Burritos",
+        "imgUrl": "burritos.png"
+    }
+]
