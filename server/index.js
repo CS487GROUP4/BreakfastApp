@@ -20,14 +20,17 @@ const db = new sqlite3.Database('breakfast.db');
 /**** Users ****/
 
 app.post('/login', (req, res) => {
-    db.get('SELECT id, username, password, role FROM users WHERE username = ?', [req.body.username], (err, row) => {
+    db.get('SELECT id, username, firstName, lastName, email, password, role FROM users WHERE username = ?', [req.body.username], (err, row) => {
         if(err) throw(err);
         if(!row || !bcrypt.compareSync(req.body.password, row.password)) {
             res.send({status: 403, message: 'Incorrect username or password'});
         } else {
-            req.session.uid = row.id;
-            req.session.role = row.role;
-            res.send({status: 200, message: 'Logged in successfully'});
+            db.get('SELECT points FROM rewards WHERE user = ?', [row.id], (err, pts) => {
+                if(err) throw(err);
+                req.session.uid = row.id;
+                req.session.role = row.role;
+                res.send({status: 200, message: {firstName: row.firstName, lastName: row.lastName, email: row.email, role: row.role, points: pts.points}});
+            });
         }
     });
 });
@@ -42,7 +45,27 @@ app.post('/register', (req, res) => {
     ], 
     (err) => {
         if(err) throw(err);
-        res.send({status: 200, message: `Successfully registered ${req.body.firstName} ${req.body.lastName}`});
+        db.get('SELECT last_insert_rowid() AS user', (err, row) => { // uh huh yep mhm yep mhm
+            db.run('INSERT INTO rewards VALUES (?, 0)', [row.user], (err) => {
+                if(err) throw(err);
+                res.send({status: 200, message: `Successfully registered ${req.body.firstName} ${req.body.lastName}`});
+            });
+        });
+    });
+});
+
+app.get('/users/:user', (req, res) => {
+    if(req.session.uid != req.params.user && req.session.role == 'customer') res.send({status: 403, message: 'Unauthorized'});
+    db.get('SELECT id, username, firstName, lastName, email, role FROM users WHERE id = ?', [req.params.user], (err, row) => {
+        if(err) throw(err);
+        if(!row) {
+            res.send({status: 500, message: 'Something went wrong'});
+        } else {
+            db.get('SELECT points FROM rewards WHERE user = ?', [row.id], (err, pts) => {
+                if(err) throw(err);
+                res.send({status: 200, message: {firstName: row.firstName, lastName: row.lastName, email: row.email, role: row.role, points: pts.points}});
+            });
+        }
     });
 });
 
@@ -182,6 +205,13 @@ app.post('/locations/:location/order', (req, res) => {
                 });
             });
         }
+    });
+});
+
+app.get('/locations/:location/reviews', (req, res) => {
+    db.all('SELECT * FROM reviews JOIN user ON reviews.user = user.id WHERE location = ?', [req.params.location], (err, rows) => {
+        if(err) throw(err);
+        res.send({status: 200, message: rows});
     });
 });
 
