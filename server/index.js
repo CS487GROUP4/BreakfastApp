@@ -23,7 +23,7 @@ app.post('/login', (req, res) => {
     db.get('SELECT id, username, firstName, lastName, email, password, role FROM users WHERE username = ?', [req.body.username], (err, row) => {
         if(err) throw(err);
         if(!row || !bcrypt.compareSync(req.body.password, row.password)) {
-            res.send({status: 403, message: 'Incorrect username or password'});
+            return res.send({status: 403, message: 'Incorrect username or password'});
         } else {
             db.get('SELECT points FROM rewards WHERE user = ?', [row.id], (err, pts) => {
                 if(err) throw(err);
@@ -55,11 +55,11 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/users/:user', (req, res) => {
-    if(req.session.uid != req.params.user && req.session.role == 'customer') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.uid != req.params.user && req.session.role == 'customer') return res.send({status: 403, message: 'Unauthorized'});
     db.get('SELECT id, username, firstName, lastName, email, role FROM users WHERE id = ?', [req.params.user], (err, row) => {
         if(err) throw(err);
         if(!row) {
-            res.send({status: 500, message: 'Something went wrong'});
+            return res.send({status: 500, message: 'Something went wrong'});
         } else {
             db.get('SELECT points FROM rewards WHERE user = ?', [row.id], (err, pts) => {
                 if(err) throw(err);
@@ -70,7 +70,7 @@ app.get('/users/:user', (req, res) => {
 });
 
 app.put('/users/:user', (req, res) => {
-    if(req.session.uid != req.params.user && req.session.role == 'customer') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.uid != req.params.user && req.session.role == 'customer') return res.send({status: 403, message: 'Unauthorized'});
     db.run('UPDATE users SET firstName, lastName, email = ?, ?, ? WHERE id = ?',
     [req.body.firstName, req.body.lastName, req.body.email, req.params.user],
     (err) => {
@@ -91,7 +91,7 @@ app.get('/users/:user/orders', (req, res) => {
         items.push(item);
     }
 
-    if(req.session.uid != req.params.user && req.session.role == 'customer') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.uid != req.params.user && req.session.role == 'customer') return res.send({status: 403, message: 'Unauthorized'});
     db.all('SELECT transactions.id, transactions.location, transactions.timestamp, transactions.fulfillmentMethod, transactions.deliveryAddress, transactionItems.qty, products.name, products.price FROM transactions JOIN transactionItems ON transactions.id = transactionItems.tx JOIN products ON transactionItems.sku = products.sku WHERE transactions.user = ?',
     [req.params.user],
     (err, rows) => {
@@ -117,7 +117,7 @@ app.get('/users/:user/orders', (req, res) => {
 });
 
 app.put('/users/:user/role', (req, res) => {
-    if(req.session.role != 'manager') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
     db.run('UPDATE users SET role = ? WHERE id = ?',
     [req.body.role, req.params.user],
     (err) => {
@@ -127,7 +127,7 @@ app.put('/users/:user/role', (req, res) => {
 });
 
 app.put('/users/:user/block', (req, res) => {
-    if(req.session.role != 'manager') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
     db.run('INSERT INTO blocked VALUES (?, ?)',
     [req.params.user, req.body.location],
     (err) => {
@@ -137,7 +137,7 @@ app.put('/users/:user/block', (req, res) => {
 });
 
 app.put('/users/:user/unblock', (req, res) => {
-    if(req.session.role != 'manager') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
     db.run('DELETE FROM blocked WHERE user = ? AND location = ?',
     [req.params.user, req.body.location],
     (err) => {
@@ -155,6 +155,16 @@ app.get('/locations/:location/products', (req, res) => {
     });
 });
 
+app.get('/locations/:location/orders', (req, res) => {
+    //if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
+    db.all('SELECT products.sku, products.name, SUM(transactionItems.qty) as sold FROM transactions JOIN transactionItems ON transactionItems.tx = transactions.id JOIN products ON transactionItems.sku = products.sku WHERE location = ? GROUP BY products.sku, products.name', 
+    [req.params.location],
+    (err, rows) => {
+        console.log(rows);
+        res.send({status: 200, message: rows});
+    })
+});
+
 // why 
 app.post('/locations/:location/order', (req, res) => {
     // not durable, pretend it is
@@ -163,7 +173,7 @@ app.post('/locations/:location/order', (req, res) => {
     db.get('SELECT * from blocked WHERE user = ?', [req.session.uid], (err, row) => {
         if(err) throw(err);
         if(row) {
-            res.send({status: 403, message: 'User not allowed to purchase at this location'});
+            return res.send({status: 403, message: 'User not allowed to purchase at this location'});
         } else {
             db.run('INSERT INTO transactions (user, location, timestamp, fulfillmentMethod, deliveryAddress) VALUES (?, ?, ?, ?, ?)',
             [
@@ -219,7 +229,7 @@ app.post('/locations/:location/reviews', (req, res) => {
     db.get('SELECT * from blocked WHERE user = ?', [req.session.uid], (err, row) => {
         if(err) throw(err);
         if(row) {
-            res.send({status: 403, message: 'User not allowed to review this location'});
+            return res.send({status: 403, message: 'User not allowed to review this location'});
         } else {
             db.run('INSERT INTO reviews (user, location, stars, review) VALUES (?, ?, ?, ?)', [
                 req.session.uid,
@@ -237,7 +247,7 @@ app.post('/locations/:location/reviews', (req, res) => {
 /**** Products ****/
 
 app.get('/products/:sku', (req, res) => {
-    if(req.session.role != 'manager') res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
     db.run('UPDATE users SET name, image, category, price, pricePoints, calories, sugar, sodium = ?, ?, ?, ?, ?, ?, ?, ? WHERE id = ?',
     [req.body.name, req.body.image, req.body.category, req.body.price, req.body.pricePoints, req.body.calories, req.body.sugar, req.body.sodium, req.params.sku],
     (err) => {
