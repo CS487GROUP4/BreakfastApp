@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import OrderDetails from "./OrderDetails";
 
-const OrderItem: NextPage<{
+const CartItem: NextPage<{
   imgSrc: string;
 }> = ({ imgSrc }) => {
   return (
@@ -32,4 +32,4 @@ const OrderItem: NextPage<{
   );
 };
 
-export default OrderItem;
+export default CartItem;

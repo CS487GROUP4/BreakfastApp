@@ -17,24 +17,34 @@ const Checkout: NextPage = () => {
       <div className="flex flex-col items-center">
         <div className="flex gap-40">
           <form action="" className="">
-            <h2 className=""> Contact Information</h2>
-            <div className="">
-              <FormDetails label="First Name" inputType="text" />
-              <FormDetails label="Last Name" inputType="text" />
-              <FormDetails label="Email" inputType="email" />
-              <FormDetails label="Phone Number" inputType="tel" />
+            <h2 className="font-bold text-2xl mb-5"> Contact Information</h2>
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-5">
+                <FormDetails label="First Name" inputType="text" />
+                <FormDetails label="Last Name" inputType="text" />
+              </div>
+              <div className="flex gap-5">
+                <FormDetails label="Email" inputType="email" />
+                <FormDetails label="Phone Number" inputType="tel" />
+              </div>
             </div>
 
-            <h2 className=""> Credit Card Information</h2>
-            <h3 className=""> Accepted: Discover, Visa, Mastercard, Amex</h3>
-            <div className="">
+            <h2 className="font-bold text-2xl mt-10">
+              Credit Card Information
+            </h2>
+            <h3 className="font-semibold text-sm">
+              Accepted: Discover, Visa, Mastercard, Amex
+            </h3>
+            <div className="mt-4">
               <FormDetails label="Name on card" inputType="text" />
               <FormDetails label="Card Number" inputType="text" />
-              <FormDetails label="Expiration Date" inputType="text" />
-              <FormDetails label="CVV" inputType="password" />
+              <div className="flex justify-between ">
+                <FormDetails label="Expiration Date" inputType="text" />
+                <FormDetails label="CVV" inputType="password" />
+              </div>
             </div>
           </form>
-          <CheckoutInfo subtotal={12.0} total={14.0} />
+          <CheckoutInfo subtotal={12.0} total={14.0} checkOut={true} />
         </div>
 
         <div className="w-1/4 my-5">
