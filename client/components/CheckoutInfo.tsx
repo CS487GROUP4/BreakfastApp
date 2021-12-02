@@ -7,6 +7,12 @@ const CheckoutInfo: NextPage<{
   total: number;
   checkOut?: boolean;
 }> = ({ subtotal, total, checkOut }) => {
+  function placeOrder(e: any) {
+    e.preventDefault();
+    if (checkOut) {
+      alert("Order placed");
+    }
+  }
   return (
     <div className="flex flex-col p-5 bg-white shadow-card rounded-xl justify-between">
       <h1 className="font-bold text-2xl mb-3"> Checkout Information </h1>
@@ -44,7 +50,9 @@ const CheckoutInfo: NextPage<{
       </div>
       <div className="text-center bg-primary text-white rounded-lg shadow-btn py-1 font-bold text-xl">
         <Link href="/checkout">
-          <a> {checkOut ? "Place Your Order" : "Checkout"} </a>
+          <a onClick={placeOrder}>
+            {checkOut ? "Place Your Order" : "Checkout"}
+          </a>
         </Link>
       </div>
     </div>
