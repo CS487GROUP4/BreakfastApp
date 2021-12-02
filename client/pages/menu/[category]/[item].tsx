@@ -4,11 +4,11 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import storeData from "../../../data/store.json";
 
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   return {
-//     props: {},
-//   };
-// };
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {
+    props: {},
+  };
+};
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const paths = storeData.map((items) => {
