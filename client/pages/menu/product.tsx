@@ -14,6 +14,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const Product: NextPage = (props) => {
+  function addToCart() {}
+
   return (
     <div className="bg-def">
       <Nav />
@@ -34,7 +36,10 @@ const Product: NextPage = (props) => {
 
             <div className="my-12">
               <Link href="/cart">
-                <a className="px-4 py-3 bg-primary rounded-def text-white font-primary font-semibold shadow-btn">
+                <a
+                  onClick={addToCart}
+                  className="px-4 py-3 bg-primary rounded-def text-white font-primary font-semibold shadow-btn"
+                >
                   Add to Cart
                 </a>
               </Link>

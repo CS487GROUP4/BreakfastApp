@@ -6,10 +6,10 @@ import Footer from "../components/Footer";
 const SignIn: NextPage = () => {
   async function handleLogin(e: any) {
     e.preventDefault();
-
+    alert("Form Submitted");
     const options = {
       body: JSON.stringify({
-        username: e.target.email.value,
+        username: e.target.username.value,
         password: e.target.password.value,
       }),
       headers: {
@@ -21,6 +21,8 @@ const SignIn: NextPage = () => {
     const res = await fetch("http://localhost:3005/login", options);
 
     const result = await res.json();
+    e.target.username.value = "";
+    e.target.password.value = "";
     console.log(result);
   }
   return (
@@ -35,11 +37,11 @@ const SignIn: NextPage = () => {
       </button>
 
       <form action="post" onSubmit={handleLogin}>
-        <label> Email</label>
-        <input type="text" name="email" id="" />
+        <label> Username</label>
+        <input type="text" name="username" id="username" />
 
         <label> Password </label>
-        <input type="password" name="password" id="" />
+        <input type="password" name="password" id="password" />
 
         <button type="submit"> Sign In</button>
       </form>

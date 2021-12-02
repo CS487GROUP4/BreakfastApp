@@ -1,11 +1,21 @@
-import React from "react";
+import type { NextPage } from "next";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import Breadcrumb from "../components/Breadcrumb";
 import Link from "next/link";
 import CartItem from "../components/CartItem";
 import CheckoutInfo from "../components/CheckoutInfo";
-const Cart = () => {
+import { GetStaticProps } from "next";
+import cart from "../data/cart.json";
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {
+    props: {
+      cart,
+    },
+  };
+};
+const Cart: NextPage<{ cart: any }> = ({ cart }) => {
   return (
     <div className="bg-def">
       <Nav />
@@ -20,7 +30,17 @@ const Cart = () => {
             </a>
           </div>
           <div className="flex flex-col">
-            <CartItem imgSrc="donuts.png" />
+            {cart.map((item: any) => {
+              return (
+                <CartItem
+                  imgSrc={item.imgUrl}
+                  productName={item.name}
+                  options={""}
+                  quantity={item.quantity}
+                  price={item.price}
+                />
+              );
+            })}
           </div>
           <div className="flex items-center justify-between mt-5">
             <h3 className="font-semibold text-lg"> Current Points: 4350</h3>

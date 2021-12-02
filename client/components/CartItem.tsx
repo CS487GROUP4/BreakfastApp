@@ -4,7 +4,11 @@ import OrderDetails from "./OrderDetails";
 
 const CartItem: NextPage<{
   imgSrc: string;
-}> = ({ imgSrc }) => {
+  productName: string;
+  options: string;
+  quantity: number;
+  price: number;
+}> = ({ imgSrc, productName, options, quantity, price }) => {
   return (
     <article className="flex bg-white p-4 shadow-card rounded-def">
       <div className="mr-5">
@@ -17,10 +21,10 @@ const CartItem: NextPage<{
       </div>
 
       <OrderDetails
-        title="Glazed Donut"
-        options="Single"
-        quantity={3}
-        price={3.0}
+        title={productName}
+        options={options || ""}
+        quantity={quantity}
+        price={price}
       />
 
       <div className="relative">

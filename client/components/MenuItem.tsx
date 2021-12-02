@@ -8,6 +8,9 @@ const MenuItem: NextPage<{
   price: number;
   linkUrl: string;
 }> = ({ title, imgSrc, price, linkUrl }) => {
+  function addToCart(e: any) {
+    e.preventDefault();
+  }
   return (
     <article className="rounded-def shadow-card overflow-hidden text-center bg-white">
       <a>
@@ -24,7 +27,10 @@ const MenuItem: NextPage<{
       <p className="mb-3 font-secondary"> Price: ${price}</p>
       <div className="my-5">
         <Link href="/cart">
-          <a className="px-4 py-3 bg-primary rounded-def text-white font-primary font-semibold">
+          <a
+            onClick={addToCart}
+            className="px-4 py-3 bg-primary rounded-def text-white font-primary font-semibold"
+          >
             Add to Cart
           </a>
         </Link>
