@@ -20,6 +20,11 @@ CREATE TABLE employees(
     location INTEGER REFERENCES locations(id)
 );
 
+CREATE TABLE blocked(
+    user INTEGER REFERENCES users(id),
+    location INTEGER REFERENCES locations(id)
+);
+
 CREATE TABLE products(
     sku INTEGER PRIMARY KEY ASC,
     name TEXT,
