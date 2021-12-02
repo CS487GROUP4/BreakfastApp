@@ -156,7 +156,7 @@ app.get('/locations/:location/products', (req, res) => {
 });
 
 app.get('/locations/:location/orders', (req, res) => {
-    //if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
+    if(req.session.role != 'manager') return res.send({status: 403, message: 'Unauthorized'});
     db.all('SELECT products.sku, products.name, SUM(transactionItems.qty) as sold FROM transactions JOIN transactionItems ON transactionItems.tx = transactions.id JOIN products ON transactionItems.sku = products.sku WHERE location = ? GROUP BY products.sku, products.name', 
     [req.params.location],
     (err, rows) => {
@@ -168,8 +168,6 @@ app.get('/locations/:location/orders', (req, res) => {
 // why 
 app.post('/locations/:location/order', (req, res) => {
     // not durable, pretend it is
-    req.session.uid = 1;
-
     db.get('SELECT * from blocked WHERE user = ?', [req.session.uid], (err, row) => {
         if(err) throw(err);
         if(row) {
