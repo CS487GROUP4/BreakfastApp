@@ -4,6 +4,25 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
 const SignIn: NextPage = () => {
+  async function handleLogin(e: any) {
+    e.preventDefault();
+
+    const options = {
+      body: JSON.stringify({
+        username: e.target.email.value,
+        password: e.target.password.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    };
+
+    const res = await fetch("http://localhost:3005/login", options);
+
+    const result = await res.json();
+    console.log(result);
+  }
   return (
     <main className="bg-def">
       <Nav />
@@ -15,12 +34,12 @@ const SignIn: NextPage = () => {
         Sign in with Google
       </button>
 
-      <form action="post">
+      <form action="post" onSubmit={handleLogin}>
         <label> Email</label>
-        <input type="email" name="" id="" />
+        <input type="text" name="email" id="" />
 
         <label> Password </label>
-        <input type="password" name="" id="" />
+        <input type="password" name="password" id="" />
 
         <button type="submit"> Sign In</button>
       </form>
