@@ -3,10 +3,12 @@
 
 const express = require('express');
 const session = require('express-session');
+var cors = require('cors');
 const sqlite3 = require('sqlite3')
 const bcrypt = require('bcrypt');
 
 const app = express();
+app.use(cors);
 app.use(express.json());
 app.use(session({
     secret: 'tech yeah',
