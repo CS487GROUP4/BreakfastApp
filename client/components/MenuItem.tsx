@@ -8,9 +8,6 @@ const MenuItem: NextPage<{
   price: number;
   linkUrl: string;
 }> = ({ title, imgSrc, price, linkUrl }) => {
-  function handleImageClick() {
-    window.location.href = "";
-  }
   return (
     <article className="rounded-def shadow-card overflow-hidden text-center bg-white">
       <a>

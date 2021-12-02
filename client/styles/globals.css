@@ -22,6 +22,10 @@ Secondary Font: Open Sans
     .title {
         @apply text-center font-primary font-bold text-4xl justify-self-center mb-10
     }
+
+    .btn-checkout {
+        @apply bg-white text-black border border-black rounded-def px-4 py-2.5
+    }
 }
 
 @layer utilities {
