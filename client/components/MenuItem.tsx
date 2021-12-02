@@ -2,22 +2,27 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const MenuItem: NextPage<{ title: string; imgSrc: string; price: number }> = ({
-  title,
-  imgSrc,
-  price,
-}) => {
+const MenuItem: NextPage<{
+  title: string;
+  imgSrc: string;
+  price: number;
+  linkUrl: string;
+}> = ({ title, imgSrc, price, linkUrl }) => {
   function handleImageClick() {
     window.location.href = "";
   }
   return (
     <article className="rounded-def shadow-card overflow-hidden text-center bg-white">
-      <Image
-        className="cursor-pointer"
-        src={`/static/${imgSrc}`}
-        width={400}
-        height={250}
-      ></Image>
+      <a>
+        <Link href={linkUrl}>
+          <Image
+            className="cursor-pointer"
+            src={`/static/${imgSrc}`}
+            width={400}
+            height={250}
+          />
+        </Link>
+      </a>
       <h1 className="font-secondary font-bold text-center text-2xl">{title}</h1>
       <p className="mb-3 font-secondary"> Price: ${price}</p>
       <div className="my-5">

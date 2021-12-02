@@ -10,7 +10,6 @@ import storeData from "../../data/store.json";
 import categoryData from "../../data/categories.json";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log("params", params);
   return {
     props: {
       // Get only the items where the currentPages URL is == category name
@@ -43,7 +42,6 @@ const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
   const router = useRouter();
   const category: any = router.query.category;
   const pageTitle = category?.charAt(0).toUpperCase() + category?.slice(1);
-  console.log(items);
   return (
     <div className="bg-def">
       <main className="">
@@ -55,6 +53,9 @@ const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
             {items.map((item: any) => {
               return (
                 <MenuItem
+                  linkUrl={`/menu/${pageTitle.toLowerCase()}/${item.item
+                    .toLowerCase()
+                    .replace(/\s/g, "-")}`}
                   title={item.item}
                   imgSrc={item.imgUrl}
                   price={item.price}
