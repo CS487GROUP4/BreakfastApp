@@ -5,9 +5,12 @@ const FormDetails: NextPage<{ label: string; inputType: string }> = ({
   inputType,
 }) => {
   return (
-    <div>
-      <label> {label}</label>
-      <input type={inputType} className="" />
+    <div className="flex flex-col">
+      <label className="font-medium text-md"> {label}</label>
+      <input
+        type={inputType}
+        className="border border-black rounded-md p-0.5"
+      />
     </div>
   );
 };

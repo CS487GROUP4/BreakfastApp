@@ -2,12 +2,13 @@ import type { NextPage } from "next";
 import OrderDetails from "./OrderDetails";
 import Link from "next/link";
 
-const CheckoutInfo: NextPage<{ subtotal: number; total: number }> = ({
-  subtotal,
-  total,
-}) => {
+const CheckoutInfo: NextPage<{
+  subtotal: number;
+  total: number;
+  checkOut?: boolean;
+}> = ({ subtotal, total, checkOut }) => {
   return (
-    <div className="flex flex-col p-5 bg-white shadow-card rounded-xl">
+    <div className="flex flex-col p-5 bg-white shadow-card rounded-xl justify-between">
       <h1 className="font-bold text-2xl mb-3"> Checkout Information </h1>
       <div className="flex">
         <OrderDetails
@@ -43,7 +44,7 @@ const CheckoutInfo: NextPage<{ subtotal: number; total: number }> = ({
       </div>
       <div className="text-center bg-primary text-white rounded-lg shadow-btn py-1 font-bold text-xl">
         <Link href="/checkout">
-          <a> Checkout </a>
+          <a> {checkOut ? "Place Your Order" : "Checkout"} </a>
         </Link>
       </div>
     </div>
