@@ -1,13 +1,19 @@
 import type { NextPage } from "next";
+import Router from "next/router";
 import { useState } from "react";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import { useContext } from "react";
+import { StoreContext, ACTION_TYPES } from "./_app";
 
 const SignIn: NextPage = () => {
   const [error, setError] = useState(null);
+  const { dispatch, state } = useContext(StoreContext);
+
   async function handleLogin(e: any) {
     e.preventDefault();
+    // Request information
     const options = {
       body: JSON.stringify({
         username: e.target.username.value,
@@ -19,14 +25,29 @@ const SignIn: NextPage = () => {
       method: "POST",
     };
 
+    // Make request for login endpoint
     const res = await fetch("http://localhost:3005/login", options);
     const result = await res.json();
+    const { status, message } = result;
+    if (status === 403) {
+      setError(message);
+      alert(message);
+      return;
+    }
+    // Update global state on successful login to get login data
+    dispatch({
+      type: ACTION_TYPES.IS_ADMIN,
+      payload: {
+        admin: message,
+      },
+    });
 
-    console.log(result);
-    alert(result.message);
-
+    // Reset form
     e.target.username.value = "";
     e.target.password.value = "";
+
+    // Direct to menu
+    Router.push("/menu");
   }
   return (
     <main className="bg-def">
@@ -66,6 +87,7 @@ const SignIn: NextPage = () => {
               id="password"
             />
 
+            {error && <p>{error}</p>}
             <button
               type="submit"
               className="bg-secondary text-white font-bold py-1 mt-5 rounded-lg hover:bg-secondary_light"

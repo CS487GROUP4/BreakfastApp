@@ -9,6 +9,8 @@ import categoryData from "../../../data/categories.json";
 import Breadcrumb from "../../../components/Breadcrumb";
 import Image from "next/image";
 import Link from "next/dist/client/link";
+import { useContext } from "react";
+import { StoreContext } from "../../_app";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   console.log({ params });
@@ -41,6 +43,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 const Item: NextPage<{ items: any }> = ({ items }) => {
+  const { state } = useContext(StoreContext);
   const [quantity, setQuantity] = useState(1);
   const { item: name, category: ctgyName, imgUrl, price } = items[0];
   const router = useRouter();
@@ -56,7 +59,7 @@ const Item: NextPage<{ items: any }> = ({ items }) => {
 
   return (
     <div className="bg-def">
-      <Nav />
+      <Nav loggedIn={state.admin} />
       <Breadcrumb current={`${ctgyName} / ${name}`} />
       <h1 className="title my-12"> Item Information </h1>
       <div className="flex justify-evenly">

@@ -2,13 +2,21 @@ import type { NextPage } from "next";
 import NavItem from "./NavItem";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StoreContext } from "../pages/_app";
 
-const Nav: NextPage<{ isBrowsing?: boolean }> = ({ isBrowsing }) => {
+const Nav: NextPage<{ isBrowsing?: boolean; loggedIn?: boolean }> = ({
+  isBrowsing,
+  loggedIn,
+}) => {
   const { state } = useContext(StoreContext);
 
   const { cart, admin } = state;
+
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // if (admin) {
+  //   setIsLoggedIn(true);
+  // }
 
   return (
     <nav className="relative flex flex-row justify-between items-center p-5 bg-white shadow-nav font-primary">
@@ -30,16 +38,19 @@ const Nav: NextPage<{ isBrowsing?: boolean }> = ({ isBrowsing }) => {
         <NavItem href="/" text="Contact" />
       </ul>
 
-      <div className="">
-        {!admin ? (
+      <div className="flex justify-evenly items-center">
+        {!loggedIn ? (
           <Link href="/signin">
             <a className="btn btn-def-hover text-black bg-white border border-black py-1.5 mr-4 font-semibold">
               Sign In
             </a>
           </Link>
         ) : (
-          <p className=" text-black py-1.5 mr-4 font-semibold">
-            Welcome, Manager
+          <p className=" w-1/3 text-black py-1.5 mr-4 font-semibold">
+            Welcome,{" "}
+            <span className="text-error">
+              {admin.firstName === "" ? "null" : admin.firstName}
+            </span>
           </p>
         )}
 

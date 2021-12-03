@@ -6,6 +6,11 @@ import Footer from "../../../components/Footer";
 import MenuItem from "../../../components/MenuItem";
 import Nav from "../../../components/Nav";
 
+// React Context
+import { useContext } from "react";
+import { StoreContext } from "../../_app";
+
+// Data
 import storeData from "../../../data/store.json";
 import categoryData from "../../../data/categories.json";
 
@@ -39,13 +44,15 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
+  const { state } = useContext(StoreContext);
+
   const router = useRouter();
   const category: any = router.query.category;
   const pageTitle = category?.charAt(0).toUpperCase() + category?.slice(1);
   return (
     <div className="bg-def">
       <main className="">
-        <Nav />
+        <Nav loggedIn={state.admin} />
         <Breadcrumb current={pageTitle} />
         <h1 className="title">{pageTitle}</h1>
         {items.length > 0 ? (
