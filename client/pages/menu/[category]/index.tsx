@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Breadcrumb from "../../components/Breadcrumb";
-import Footer from "../../components/Footer";
-import MenuItem from "../../components/MenuItem";
-import Nav from "../../components/Nav";
+import Breadcrumb from "../../../components/Breadcrumb";
+import Footer from "../../../components/Footer";
+import MenuItem from "../../../components/MenuItem";
+import Nav from "../../../components/Nav";
 
-import storeData from "../../data/store.json";
-import categoryData from "../../data/categories.json";
+import storeData from "../../../data/store.json";
+import categoryData from "../../../data/categories.json";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
