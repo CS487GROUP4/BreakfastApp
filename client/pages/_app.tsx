@@ -22,6 +22,7 @@ const storeReducer = (state: any, action: any) => {
       return { ...state, cart: action.payload.cart };
     }
     case ACTION_TYPES.IS_ADMIN: {
+      localStorage.setItem("user", JSON.stringify(action.payload.admin));
       return { ...state, admin: action.payload.admin };
     }
     default:

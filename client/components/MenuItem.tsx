@@ -1,7 +1,9 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import cart from "../data/cart.json";
+// import cart from "../data/cart.json";
+import { useContext } from "react";
+import { ACTION_TYPES, StoreContext } from "../pages/_app";
 
 const MenuItem: NextPage<{
   title: string;
@@ -9,9 +11,18 @@ const MenuItem: NextPage<{
   price: number;
   linkUrl: string;
 }> = ({ title, imgSrc, price, linkUrl }) => {
-  function addToCart(e: any) {
-    e.preventDefault();
-    cart.push();
+  let currentCart: any = [];
+  const { state, dispatch } = useContext(StoreContext);
+  function addToCart() {
+    currentCart.push({ title, price, imgSrc });
+    alert(`${title} added to cart`);
+    dispatch({
+      type: ACTION_TYPES.ADD_TO_CART,
+      payload: {
+        cart: currentCart,
+      },
+    });
+    localStorage.setItem("cartItem", currentCart);
   }
   return (
     <article className="rounded-def shadow-card overflow-hidden text-center bg-white">

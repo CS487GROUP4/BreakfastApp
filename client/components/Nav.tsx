@@ -65,7 +65,7 @@ const Nav: NextPage<{ isBrowsing?: boolean; loggedIn?: boolean }> = ({
             <a className="relative btn bg-primary py-3 transition-all duration-100 font-semibold">
               🛒 Cart
               <span className="absolute right-3 -top-3.5 px-2 rounded-circle bg-black border border-white">
-                <span className="text-xs">{cart.length}</span>
+                <span className="text-xs">{cart.length + 1}</span>
               </span>
             </a>
           </Link>
