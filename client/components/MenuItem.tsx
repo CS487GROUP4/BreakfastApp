@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import cart from "../data/cart.json";
 
 const MenuItem: NextPage<{
   title: string;
@@ -10,19 +11,20 @@ const MenuItem: NextPage<{
 }> = ({ title, imgSrc, price, linkUrl }) => {
   function addToCart(e: any) {
     e.preventDefault();
+    cart.push();
   }
   return (
     <article className="rounded-def shadow-card overflow-hidden text-center bg-white">
-      <a>
-        <Link href={linkUrl}>
+      <Link href={linkUrl}>
+        <a>
           <Image
             className="cursor-pointer"
             src={`/static/${imgSrc}`}
             width={400}
             height={250}
           />
-        </Link>
-      </a>
+        </a>
+      </Link>
       <h1 className="font-secondary font-bold text-center text-2xl">{title}</h1>
       <p className="mb-3 font-secondary"> Price: ${price}</p>
       <div className="my-5">

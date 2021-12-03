@@ -53,6 +53,7 @@ const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
             {items.map((item: any) => {
               return (
                 <MenuItem
+                  key={item.id}
                   linkUrl={`/menu/${pageTitle.toLowerCase()}/${item.item
                     .toLowerCase()
                     .replace(/\s/g, "-")}`}

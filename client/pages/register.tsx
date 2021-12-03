@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
-const SignIn: NextPage = () => {
+const Register: NextPage = () => {
   async function handleLogin(e: any) {
     e.preventDefault();
     alert("Form Submitted");
@@ -18,7 +18,7 @@ const SignIn: NextPage = () => {
       method: "POST",
     };
 
-    const res = await fetch("http://localhost:3005/login", options);
+    const res = await fetch("http://localhost:3005/register", options);
 
     const result = await res.json();
     e.target.username.value = "";
@@ -31,7 +31,7 @@ const SignIn: NextPage = () => {
       <div className="h-screen">
         <div className="flex flex-col items-center">
           <div className="mt-10">
-            <h1 className="text-3xl font-bold">Sign in or create an account</h1>
+            <h1 className="text-3xl font-bold"> Register</h1>
             <h2 className="font-medium text-xl">
               Save your orders, earn points, and redeem rewards with a bhole
               account
@@ -41,7 +41,7 @@ const SignIn: NextPage = () => {
             type="submit"
             className="font-semibold border border-black bg-white rounded-lg px-3 py-1 my-3 hover:bg-secondary hover:text-white"
           >
-            Sign in with Google
+            Register with Google
           </button>
 
           <form action="post" onSubmit={handleLogin} className="flex flex-col">
@@ -67,13 +67,13 @@ const SignIn: NextPage = () => {
               type="submit"
               className="bg-secondary text-white font-bold py-1 mt-5 rounded-lg hover:bg-secondary_light"
             >
-              Sign In
+              Register
             </button>
           </form>
           <div className="flex my-2">
-            <p className=""> Don't have an account?</p>
-            <Link href="/register">
-              <a className="underline"> Create an account</a>
+            <p className=""> Have an account?</p>
+            <Link href="/signin">
+              <a className="underline"> Sign in</a>
             </Link>
           </div>
         </div>
@@ -84,4 +84,4 @@ const SignIn: NextPage = () => {
   );
 };
 
-export default SignIn;
+export default Register;

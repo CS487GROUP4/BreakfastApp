@@ -35,6 +35,7 @@ const Menu: NextPage<{ categories: Data[] }> = ({ categories }) => {
             categories.map((category) => {
               return (
                 <MenuSection
+                  key={category.id}
                   imgSrc={category.imgUrl}
                   title={category.category}
                 />
