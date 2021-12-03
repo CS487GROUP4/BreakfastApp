@@ -2,11 +2,12 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 const Register: NextPage = () => {
+  const [error, setError] = useState(null);
   async function handleLogin(e: any) {
     e.preventDefault();
-    alert("Form Submitted");
     const options = {
       body: JSON.stringify({
         username: e.target.username.value,
@@ -19,11 +20,11 @@ const Register: NextPage = () => {
     };
 
     const res = await fetch("http://localhost:3005/register", options);
-
     const result = await res.json();
+    alert(result.message);
+
     e.target.username.value = "";
     e.target.password.value = "";
-    console.log(result);
   }
   return (
     <main className="bg-def">

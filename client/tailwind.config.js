@@ -11,6 +11,7 @@ module.exports = {
       },
       borderRadius: {
         def: "25px",
+        circle: "50%",
       },
       textColor: {
         primary: "#993D13",
