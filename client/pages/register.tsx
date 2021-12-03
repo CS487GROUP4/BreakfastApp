@@ -1,19 +1,13 @@
 import type { NextPage } from "next";
-import Router from "next/router";
-import { useState } from "react";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { useContext } from "react";
-import { StoreContext, ACTION_TYPES } from "./_app";
+import { useState } from "react";
 
-const SignIn: NextPage = () => {
+const Register: NextPage = () => {
   const [error, setError] = useState(null);
-  const { dispatch, state } = useContext(StoreContext);
-
   async function handleLogin(e: any) {
     e.preventDefault();
-    // Request information
     const options = {
       body: JSON.stringify({
         username: e.target.username.value,
@@ -25,29 +19,12 @@ const SignIn: NextPage = () => {
       method: "POST",
     };
 
-    // Make request for login endpoint
-    const res = await fetch("http://localhost:3005/login", options);
+    const res = await fetch("http://localhost:3005/register", options);
     const result = await res.json();
-    const { status, message } = result;
-    if (status === 403) {
-      setError(message);
-      alert(message);
-      return;
-    }
-    // Update global state on successful login to get login data
-    dispatch({
-      type: ACTION_TYPES.IS_ADMIN,
-      payload: {
-        admin: message,
-      },
-    });
+    alert(result.message);
 
-    // Reset form
     e.target.username.value = "";
     e.target.password.value = "";
-
-    // Direct to menu
-    Router.push("/menu");
   }
   return (
     <main className="bg-def">
@@ -55,7 +32,7 @@ const SignIn: NextPage = () => {
       <div className="h-screen">
         <div className="flex flex-col items-center">
           <div className="mt-10">
-            <h1 className="text-3xl font-bold">Sign in or create an account</h1>
+            <h1 className="text-3xl font-bold"> Register</h1>
             <h2 className="font-medium text-xl">
               Save your orders, earn points, and redeem rewards with a bhole
               account
@@ -65,7 +42,7 @@ const SignIn: NextPage = () => {
             type="submit"
             className="font-semibold border border-black bg-white rounded-lg px-3 py-1 my-3 hover:bg-secondary hover:text-white"
           >
-            Sign in with Google
+            Register with Google
           </button>
 
           <form action="post" onSubmit={handleLogin} className="flex flex-col">
@@ -87,18 +64,17 @@ const SignIn: NextPage = () => {
               id="password"
             />
 
-            {error && <p>{error}</p>}
             <button
               type="submit"
               className="bg-secondary text-white font-bold py-1 mt-5 rounded-lg hover:bg-secondary_light"
             >
-              Sign In
+              Register
             </button>
           </form>
           <div className="flex my-2">
-            <p className=""> Don't have an account?</p>
-            <Link href="/register">
-              <a className="underline"> Create an account</a>
+            <p className=""> Have an account?</p>
+            <Link href="/signin">
+              <a className="underline"> Sign in</a>
             </Link>
           </div>
         </div>
@@ -109,4 +85,4 @@ const SignIn: NextPage = () => {
   );
 };
 
-export default SignIn;
+export default Register;

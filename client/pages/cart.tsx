@@ -6,6 +6,7 @@ import Link from "next/link";
 import CartItem from "../components/CartItem";
 import CheckoutInfo from "../components/CheckoutInfo";
 import { GetStaticProps } from "next";
+import { useEffect } from "react";
 import cart from "../data/cart.json";
 
 export const getStaticProps: GetStaticProps = async (context) => {

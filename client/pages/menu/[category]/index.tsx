@@ -1,13 +1,18 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Breadcrumb from "../../components/Breadcrumb";
-import Footer from "../../components/Footer";
-import MenuItem from "../../components/MenuItem";
-import Nav from "../../components/Nav";
+import Breadcrumb from "../../../components/Breadcrumb";
+import Footer from "../../../components/Footer";
+import MenuItem from "../../../components/MenuItem";
+import Nav from "../../../components/Nav";
 
-import storeData from "../../data/store.json";
-import categoryData from "../../data/categories.json";
+// React Context
+import { useContext } from "react";
+import { StoreContext } from "../../_app";
+
+// Data
+import storeData from "../../../data/store.json";
+import categoryData from "../../../data/categories.json";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
@@ -39,13 +44,15 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
+  const { state } = useContext(StoreContext);
+
   const router = useRouter();
   const category: any = router.query.category;
   const pageTitle = category?.charAt(0).toUpperCase() + category?.slice(1);
   return (
     <div className="bg-def">
       <main className="">
-        <Nav />
+        <Nav loggedIn={state.admin} />
         <Breadcrumb current={pageTitle} />
         <h1 className="title">{pageTitle}</h1>
         {items.length > 0 ? (
@@ -53,6 +60,7 @@ const MenuCategory: NextPage<{ items: any }> = ({ items }) => {
             {items.map((item: any) => {
               return (
                 <MenuItem
+                  key={item.id}
                   linkUrl={`/menu/${pageTitle.toLowerCase()}/${item.item
                     .toLowerCase()
                     .replace(/\s/g, "-")}`}
